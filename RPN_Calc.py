@@ -54,7 +54,6 @@ def process_input(stack):
         if n in operators:
             stack[1].append(n)
             contains_operator = True
-        # elif n.isdigit():
         else:
             is_number = True
             try:

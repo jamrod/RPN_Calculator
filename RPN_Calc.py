@@ -1,6 +1,7 @@
 #RPN command line calculator
 
 def calculator(a,b,operator):
+    """perform basic math operations on two digits based on operator char"""
     if operator == '+':
         return a + b
     elif operator == '-':
@@ -15,6 +16,13 @@ def calculator(a,b,operator):
 
 
 def process_stack(s):
+    """
+    process the numbers and operators in RPN order, 
+    arguments are passed in as a list containing 2 lists, 
+    1st list is integers, second list is operators
+    calls calculator to perform maths 
+    returns sum after using all operators
+    """
     nums = s[0]
     ops = s[1]
 
@@ -33,6 +41,13 @@ def process_stack(s):
 
 
 def process_input(stack):
+    """
+    function to receive input from std.in
+    handles control chars 'q' and 'c'
+    discards invalid chars and builds the stack with integers and operators.
+    calls process_stack when operators are received
+    returns True if program should continue or False to quit
+    """
     operators = ('+', '-', '*', '/')
     contains_operator = False
     try : 
@@ -56,18 +71,23 @@ def process_input(stack):
             contains_operator = True
         else:
             is_number = True
-            try:
-                n = int(n)
-            except ValueError:
-                is_number = False
+            if '.' in n:
+                try:
+                    n = float(n)
+                except ValueError:
+                    is_number = False
+            else:
+                try:
+                    n = int(n)
+                except ValueError:
+                    is_number = False
             if is_number:
                 if contains_operator:
                     print(f"Digit out of order, {n} discarded, use 'c' to clear and restart")
                 else:
-                    stack[0].append(int(n))
+                    stack[0].append(n)
             else:
                 print(f"Invalid character {n} discarded")
-
 
     if contains_operator:
             total = process_stack(stack)
@@ -78,18 +98,23 @@ def process_input(stack):
     return True
 
 def main():
+    """
+    Initializes and runs RPN Calculator
+    runs until False received from process_input
+    """
     print("""
         RPN CLI Calculator
         Only accepts these operators: +, -, * and /
+        Enter multiple values separated by a space 
         Use 'q' to quit and 'c' to clear
-    """)
+        """)
     active = True
     stack = [[], []]
 
     while active:
         active = process_input(stack)
     
-    print("Exiting...")
+    print("Thanks for checking this out!\nExiting...")
 
     
         

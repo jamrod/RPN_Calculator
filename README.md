@@ -25,7 +25,7 @@ There's no need to implement these, but design with these future changes in mind
 I wanted to design the calculator to run in a single file with the process split into multiple functions which are small and focused. My loose starting point was 
  * a function to start the calculator, instantiate top level variables and monitor whether to quit or keep running.
  *  a function to parse input
- * and a clculator function to do maths
+ * and a calculator function to do maths
 
 My final RPN Calculator ended up pretty close to this initial thought, it is contained in a single file with a main function to initialize states, give the user some instructions and launch the process_input function which then receives input and reacts to it with some supporting functions. The main function creates a stack variable with two empty lists which maintain the numbers and operators that are input by the user and worked through by the other functions. The other variable instantiated in the main function is a boolean which can be set to False to exit the program.
 

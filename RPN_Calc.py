@@ -19,7 +19,7 @@ def process_stack(s):
     """
     process the numbers and operators in RPN order, 
     arguments are passed in as a list containing 2 lists, 
-    1st list is integers, second list is operators
+    1st list is integers, second list is operators.
     calls calculator to perform maths 
     returns sum after using all operators
     """

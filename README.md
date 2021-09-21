@@ -3,7 +3,7 @@ Code challenge for Snap Raise
 
 Git Repo [https://github.com/jamrod/RPN_Calculator]
 
-This program was written with python version 3.8.10 and python is the only dependency.
+This program was written with python version 3.8.10 and decimal is the only dependency.
 From the shell terminal run 'python RPN_Calc.py' to start the calculator.
 
 ## Requirements

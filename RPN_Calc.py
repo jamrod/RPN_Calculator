@@ -1,4 +1,5 @@
 #RPN command line calculator
+from decimal import *
 
 def calculator(a,b,operator):
     """perform basic math operations on two digits based on operator char"""
@@ -9,7 +10,13 @@ def calculator(a,b,operator):
     elif operator == '*':
         return a * b
     elif operator == '/':
-        return a / b
+        try :
+            answer = a / b
+        except DivisionByZero:
+            print("Division by zero not allowed")
+            print("Suggest using 'c' to clear and start over")
+            answer = 0
+        return answer
     else:
         print("Invalid operator")
         return 0
@@ -29,7 +36,6 @@ def process_stack(s):
     while len(ops) > 0:
         if len(nums) < 2:
             print("Error: Operators exceed Operands")
-            print(f"Current State: Operands = {nums}, Operators={ops}")
             print("Suggest using 'c' to clear and start over")
             return nums[0]
         num2 = nums.pop()
@@ -71,16 +77,11 @@ def process_input(stack):
             contains_operator = True
         else:
             is_number = True
-            if '.' in n:
-                try:
-                    n = float(n)
-                except ValueError:
-                    is_number = False
-            else:
-                try:
-                    n = int(n)
-                except ValueError:
-                    is_number = False
+            try:
+                n = Decimal(n)
+            except InvalidOperation:
+                is_number = False
+
             if is_number:
                 if contains_operator:
                     print(f"Digit out of order, {n} discarded, use 'c' to clear and restart")
@@ -90,11 +91,17 @@ def process_input(stack):
                 print(f"Invalid character {n} discarded")
 
     if contains_operator:
+        if stack[0] > 0:
             total = process_stack(stack)
             print(total)
+        else: 
+            print("Can't enter operators before numbers")
+            stack[1].clear()
     else:
-        print(stack[0][-1])
-    
+        try:
+            print(stack[0][-1])
+        except IndexError:
+            print(0)
     return True
 
 def main():
